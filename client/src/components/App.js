@@ -6,9 +6,10 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
-import Admin from "./Admin";
-import Game from "./Game";
+
+
 import Home from "./Home";
+import Staking from "./Staking"
 
 import "../css/App.css";
 import { ethers } from "ethers";
@@ -21,7 +22,7 @@ function App() {
   function initialize() {
     window.ethereum
       .request({ method: "net_version" })
-      .then((value) => setNetworkId(value))
+      .then((value) => {setNetworkId(value);})
       .catch((err) => {
         console.error(err);
       });
@@ -156,7 +157,7 @@ function App() {
             exact
             path="/admin/"
             element={
-              <Admin
+              <Home
                 provider={provider}
                 network_id={networkId}
                 address={address}
@@ -167,7 +168,7 @@ function App() {
             exact
             path="/game"
             element={
-              <Game
+              <Home
                 provider={provider}
                 network_id={networkId}
                 address={address}
@@ -179,7 +180,7 @@ function App() {
             exact
             path="/staking"
             element={
-              <Home
+              <Staking
                 provider={provider}
                 network_id={networkId}
                 address={address}
