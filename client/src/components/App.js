@@ -8,7 +8,7 @@ import Navbar from "react-bootstrap/Navbar";
 
 
 
-import Home from "./Home";
+import LandScape from "./LandScape";
 import Staking from "./Staking"
 
 import "../css/App.css";
@@ -124,7 +124,7 @@ function App() {
           <Container>
             <Navbar.Brand className="brand">MNP World</Navbar.Brand>
             <Nav className="me-auto">
-              <Nav.Link href="/">Home</Nav.Link>
+              <Nav.Link href="/">LandScape</Nav.Link>
               {renderOthersLinks()}
             </Nav>
             <Navbar.Collapse className="justify-content-end">
@@ -146,7 +146,7 @@ function App() {
             exact
             path="/"
             element={
-              <Home
+              <LandScape
                 provider={provider}
                 network_id={networkId}
                 address={address}
@@ -157,7 +157,7 @@ function App() {
             exact
             path="/admin/"
             element={
-              <Home
+              <LandScape
                 provider={provider}
                 network_id={networkId}
                 address={address}
@@ -168,7 +168,7 @@ function App() {
             exact
             path="/game"
             element={
-              <Home
+              <LandScape
                 provider={provider}
                 network_id={networkId}
                 address={address}
