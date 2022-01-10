@@ -8,7 +8,7 @@
   },
   "scripts": {
     "deploy": "truffle migrate --reset",
-    "start":"truffle exec scripts/simul.js"
+    "start":"truffle exec external/SIMUL/main.js"
   },
   "repository": {
     "type": "git",
