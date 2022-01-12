@@ -22,18 +22,22 @@ contract MiningButton  is ERC20, Killer {
 	}
 			    
 	function pushButton() external{
-		require(lastPush - _computeSeed() > 0, "MagicButton: you can't push the button");
+		require(_computeSeed() - lastPush > 0, "MagicButton: you can't push the button");
 		if(!drone){
 			drone=true;
-			pushed[msg.sender]++;
 			uint amount;
-			if(totalSupply() == 0)
+			if(pushed[msg.sender] == 0)
 				amount = 1;
-			else
-				amount=balanceOf(msg.sender)*totalSupply();
+			else{
+				uint _in = balanceOf(msg.sender)*totalSupply();
+				uint _under = pushed[msg.sender]*lastPush;
+				amount = _in/_under;
+				amount = 3;
+			}
 			_mint(msg.sender, amount);
-			lastPush = block.timestamp;
+			lastPush = block.number;
 			pushed[msg.sender]++;
+			winner = msg.sender;
 			drone=false;
 		}
 	}	
@@ -45,8 +49,11 @@ contract MiningButton  is ERC20, Killer {
 	}
 
 	function _computeSeed() internal view returns(uint){
-		if (seed==address(0)){
-			return block.timestamp-10;
+		if (seed==address(this)){
+			if(lastPush == 0)
+				return 1;
+			else
+				return block.number + 10;
 		}
 		else
 			return computeSeed();
