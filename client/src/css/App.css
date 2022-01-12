@@ -5,3 +5,20 @@
     -o-background-size: cover;
     background-size: cover;
 }
+
+.px-3{
+	background-color:#061324;
+	color : #ffffff;
+}
+
+.navbar-light .navbar-nav .nav-link{
+	color : #ffffff;
+}
+.font{	
+	color : #ffffff;
+}
+
+.mx-3{
+  background: black;
+	color : #ffffff;
+}

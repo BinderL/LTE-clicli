@@ -1,12 +1,15 @@
 
+
 import React, {useState, useEffect} from 'react';
 
 import Rogue from "../contracts/Rogue.json";
 import Tairreux from "../contracts/Tairreux.json";
 import WMatic from "../contracts/WMATIC.json";
 import UniswapV2Factory from "../contracts/UniswapV2Factory.json";
+import PropsTesrien from "../contracts/PropsTesrien.json";
 
-import StakingSpace from "./StakingSpace";
+import Dividends from "./Dividends";
+import Nft from "./Nft";
 
 import {ethers} from "ethers";
 
@@ -17,7 +20,7 @@ const Staking = (props) => {
 	const [isReadyToRender, setIsReadyToRender] = useState(false);
 	const _provider = props.provider;
 	const _networkId = props.network_id;
-	var address = window.ethereum.selectedAddress;
+	const _address = props.address;
 	const [staker,setStaker] = useState(false);
   const spinner = <Spinner as="span" animation="border" size="sm" />;
 
@@ -26,19 +29,28 @@ const Staking = (props) => {
 	const [stMPs, setstMPs] = useState(null);
 	const [factory, setFactory] = useState(null);
 	const [wmatic, setWmatic] = useState(null);
+	const [MPNft, setMPNft] = useState(null);
 
-
+	const [tokenId, setTokenId] = useState(0);
 
 
 	const displayStaker = (props) => {
 		return(
-			<StakingSpace
-				provider={props.provider}
-				networkId={props.networkId}
-				MPs={MPs}
-				stMPs={stMPs}
-			/>
+			<div className="container">
+				<Dividends
+					provider={props.provider}
+					networkId={props.networkId}
+					MPs={MPs}
+					stMPs={stMPs}
+				/>
+			</div>
 		)	
+	}
+
+	const displayDeposit = () => {
+		return("debug"
+		
+		);
 	}
 	
 	useEffect(() => {
@@ -71,6 +83,14 @@ const Staking = (props) => {
 			);
 			setWmatic(_wmatic);
 
+			const _MPNft = new ethers.Contract(
+				PropsTesrien.networks[_networkId].address,
+				PropsTesrien.abi,
+				_provider.getSigner()
+			);
+			setMPNft(_MPNft);
+
+
 			var pairAddr = await _factory.getPair(_wmatic.address, _MPs.address);
 		}
 
@@ -88,10 +108,19 @@ const Staking = (props) => {
 		return(displayStaker(props));
 	}
 	return(
-		<input
-			onClick={() => {setStaker(true);}}
-			type="button"
-			value="Staking Space"/>
+		<div>  
+			<input className="container"
+				onClick={() => {setStaker(true);}}
+				type="button"
+				value="Staking Space"/>
+			<Nft className="container"
+				text={"LANDs"}
+				contract={MPNft}
+				address={_address}
+			/>
+			{displayDeposit()}
+
+		</div>
 	)
 }
 

@@ -1,16 +1,11 @@
 .container {
 	  position: relative;
-	}
+	  display: flex;
 
-.center {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	font-size: 18px;
-}
-img { 
-	width: 100%;
+	}
+	
+.Landscape img { 
+	width: 80%;
 	height: auto;
-	opacity: 0.3;
+	opacity: 0.4;
 }

@@ -2,6 +2,11 @@
 	"name":"terrains",
 	"items":[
 		{
+			"name":"BUG",
+			"file":"cell0.png"
+		},	
+	
+		{
 			"name":"Boulevard de Belleville",
 			"file":"cell1.png"
 		},
@@ -19,7 +24,7 @@
 		},			
 		{
 			"name":"Rue de Courcelles",
-			"file":"cell3.png"
+			"file":"cell8.png"
 		},
 		{
 			"name":"Avenue de la République",

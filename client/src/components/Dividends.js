@@ -6,7 +6,7 @@ import Spinner from "react-bootstrap/Spinner";
 import ObsBalance from "./ObsBalance";
 
 
-const StakingSpace = (props) => {
+const Dividends = (props) => {
 
   const spinner = <Spinner as="span" animation="border" size="sm" />;
 
@@ -31,7 +31,7 @@ const StakingSpace = (props) => {
   }
 	else
 		return(
-			<div>
+			<div className="font">
 				<div>
 					<p>lets go shut up fucking staker</p>
 				</div>
@@ -84,4 +84,4 @@ const StakingSpace = (props) => {
 		);
 }
 
-export default StakingSpace;
+export default Dividends;

@@ -9,7 +9,8 @@ import Navbar from "react-bootstrap/Navbar";
 
 
 import LandScape from "./LandScape";
-import Staking from "./Staking"
+import Staking from "./Staking";
+import Game from "./Game";
 
 import "../css/App.css";
 import { ethers } from "ethers";
@@ -66,16 +67,9 @@ function App() {
   useEffect(() => {
     initialize();
     subscribeEthereumEvents();
-    if (window.ethereum && !address) {
-      setAddress(address);
-    }
 
     setProvider(getProvider());
   }, []);
-
-  useEffect(() => {
-    setProvider(getProvider());
-  }, [networkId, address]);
 
   function connectWallet() {
     if (address) {
@@ -120,9 +114,11 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar className="px-3" bg="light">
+        <Navbar className="px-3" >
           <Container>
-            <Navbar.Brand className="brand">MNP World</Navbar.Brand>
+            <Navbar.Brand className="brand">
+							<img src="/images/monopoly_logo.png" width="50%" height="40%"/>
+						</Navbar.Brand>
             <Nav className="me-auto">
               <Nav.Link href="/">LandScape</Nav.Link>
               {renderOthersLinks()}
@@ -142,8 +138,8 @@ function App() {
         </Navbar>
 
         <Routes>
-          <Route
-            exact
+          <Route 
+						exact
             path="/"
             element={
               <LandScape
@@ -168,7 +164,7 @@ function App() {
             exact
             path="/game"
             element={
-              <LandScape
+              <Game
                 provider={provider}
                 network_id={networkId}
                 address={address}
