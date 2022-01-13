@@ -166,9 +166,8 @@ function App() {
             element={
               <Game
                 provider={provider}
-                network_id={networkId}
+                networkId={networkId}
                 address={address}
-                edition_id="0"
               />
             }
           />
