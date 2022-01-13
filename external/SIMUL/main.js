@@ -1,3 +1,4 @@
+
 const { liquidity, mint } = require("./liquidityPlayer.js");
 const engine = require("./engine.js");
 
@@ -47,7 +48,6 @@ module.exports = async function(callback) {
 		await engine.run(web3.eth.sendTransaction, accounts[0], 0, 100);
 		earn = await masterchef.pendingBst(0, accounts[1]);
 		console.log("after run claimable MPs = ", earn.toString()) 
-		
 		callback();
 	}
 

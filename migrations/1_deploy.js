@@ -5,6 +5,7 @@ var UniswapV2Router02 = artifacts.require("./UniswapV2Router02.sol");
 var MasterChief = artifacts.require("./MasterChef");
 var stMPs = artifacts.require("Tairreux");
 var MPNft = artifacts.require("PropsTesrien");
+var MagicButton = artifacts.require("MiningButton");
 
 module.exports = async function(deployer, network, accounts) {
   await deployer.deploy(UniswapV2Factory, accounts[0]);
@@ -23,5 +24,5 @@ module.exports = async function(deployer, network, accounts) {
   await deployer.deploy(stMPs, _MPs.address);
   console.log(PairAddr);
 	await deployer.deploy(MPNft);
+	await deployer.deploy(MagicButton);
 
-};
