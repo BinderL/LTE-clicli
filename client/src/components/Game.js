@@ -11,7 +11,11 @@ function Game(props) {
 	const rendering = () => {
 		if(render){
 			return(
-				<MagicButton/>
+				<MagicButton
+					networkId={_networkId}
+					provider={_provider}
+					address={_address}
+				/>
 			)
 		}
 	}
