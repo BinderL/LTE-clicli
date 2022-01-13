@@ -6,13 +6,17 @@ import "./Seed.sol";
 
 contract MiningButton  is ERC20, Killer {
 
+
+
 	address public winner;
 	address public seed;
 	address owner;
 	
 	uint lastPush;
 	bool drone;
-	
+
+	event Push(address winner);
+
 	mapping (address => uint) public pushed;
 	
 	constructor() ERC20("MiningButton", "MB") {
@@ -32,13 +36,13 @@ contract MiningButton  is ERC20, Killer {
 				uint _in = balanceOf(msg.sender)*totalSupply();
 				uint _under = pushed[msg.sender]*lastPush;
 				amount = _in/_under;
-				amount = 3;
 			}
 			_mint(msg.sender, amount);
 			lastPush = block.number;
 			pushed[msg.sender]++;
 			winner = msg.sender;
 			drone=false;
+			emit Push(winner);
 		}
 	}	
 
@@ -58,4 +62,5 @@ contract MiningButton  is ERC20, Killer {
 		else
 			return computeSeed();
 	}
+
 }

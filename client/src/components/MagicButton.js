@@ -1,9 +1,9 @@
 
 import {ethers} from "ethers";
-import {useState} from 'react';
+import {useState, UseEffect} from 'react';
 import MiningButton from "../contracts/MiningButton";
 
-import ObsBalance from "./ObsBalance"
+import EventListener from "./EventListener"
 
 function MagicButton (props) {
 	const _provider=props.provider;
@@ -27,10 +27,10 @@ function MagicButton (props) {
 				await MB.pushButton({from:_address});
 				}}
 			/>
-			<ObsBalance
-				text="you push the button : "
+			<EventListener
+				text="Player Winner"
 				contract={MB}
-				event={"test"}
+				event={"Push"}
 			/>
 		</div>
 	)
