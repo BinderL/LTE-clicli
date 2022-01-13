@@ -1,4 +1,3 @@
-import "../external/monopoly/styles.css"
 import MagicButton from "./MagicButton"
 import {useState} from "react";
 

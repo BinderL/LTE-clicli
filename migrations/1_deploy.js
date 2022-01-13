@@ -25,4 +25,4 @@ module.exports = async function(deployer, network, accounts) {
   console.log(PairAddr);
 	await deployer.deploy(MPNft);
 	await deployer.deploy(MagicButton);
-
+}
