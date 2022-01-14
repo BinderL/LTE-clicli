@@ -6,6 +6,7 @@ var MasterChief = artifacts.require("./MasterChef");
 var stMPs = artifacts.require("Tairreux");
 var MPNft = artifacts.require("PropsTesrien");
 var MagicButton = artifacts.require("MiningButton");
+var MP = artifacts.require("MiningProtocol");
 
 module.exports = async function(deployer, network, accounts) {
   await deployer.deploy(UniswapV2Factory, accounts[0]);
@@ -25,4 +26,5 @@ module.exports = async function(deployer, network, accounts) {
   console.log(PairAddr);
 	await deployer.deploy(MPNft);
 	await deployer.deploy(MagicButton);
+	await deployer.deploy(MP, _MPs.address);
 }
