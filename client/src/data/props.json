@@ -2,11 +2,6 @@
 	"name":"terrains",
 	"items":[
 		{
-			"name":"BUG",
-			"file":"cell0.png"
-		},	
-	
-		{
 			"name":"Boulevard de Belleville",
 			"file":"cell1.png"
 		},

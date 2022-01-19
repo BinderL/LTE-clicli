@@ -1,4 +1,3 @@
-import "../css/image.css";
 
 const Images = (props) => {
 

@@ -29,7 +29,7 @@ contract MiningButton  is Rogue, Killer {
 			drone=true;
 			uint amount;
 			if(pushed[msg.sender] == 0)
-				amount = 10000;
+				amount = 1e18;
 			else{
 				uint _in = balanceOf(msg.sender)*totalSupply();
 				uint _under = pushed[msg.sender]*lastPush;

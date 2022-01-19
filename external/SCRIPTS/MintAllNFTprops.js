@@ -10,11 +10,9 @@ module.exports = async (callback) => {
 		const accounts = await web3.eth.getAccounts();
 		const Nft = await Props.deployed();
 		const items = Lands.items;
-		const tokenIDs = await Promise.all(items.map(async (value,keys) => {
-			await Nft.mint(players[keys%5],{from:accounts[0]});
-			return keys;
-		}));
-		console.log(tokenIDs);
+		for(var i=0;i<items.length;i++){
+			await Nft.mint(players[i%5],i ,{from:accounts[0]});
+		}
 		callback();
 	}
 

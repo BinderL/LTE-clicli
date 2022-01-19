@@ -22,3 +22,13 @@
   background: black;
 	color : #ffffff;
 }
+
+li img{
+	width:100%;
+	height:auto;
+	opacity:1;
+}
+
+.testing{
+	background: black;
+}
