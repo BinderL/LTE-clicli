@@ -3,26 +3,24 @@ pragma solidity ^0.8.11;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "./Seed.sol";
+import "./MPs.sol";
 
-contract MiningButton  is ERC20, Killer {
-
-
+contract MiningButton  is Rogue, Killer {
 
 	address public winner;
 	address public seed;
-	address owner;
 	
-	uint lastPush;
+	uint public lastPush;
 	bool drone;
 
 	event Push(address winner);
 
 	mapping (address => uint) public pushed;
 	
-	constructor() ERC20("MiningButton", "MB") {
+	constructor() Rogue() {
 		drone = false;
 		owner = msg.sender;
-		seed=address(this);
+		seed = address(this);
 	}
 			    
 	function pushButton() external{
@@ -31,7 +29,7 @@ contract MiningButton  is ERC20, Killer {
 			drone=true;
 			uint amount;
 			if(pushed[msg.sender] == 0)
-				amount = 1;
+				amount = 10000;
 			else{
 				uint _in = balanceOf(msg.sender)*totalSupply();
 				uint _under = pushed[msg.sender]*lastPush;
