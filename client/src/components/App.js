@@ -9,8 +9,7 @@ import Navbar from "react-bootstrap/Navbar";
 
 
 import LandScape from "./LandScape";
-import Staking from "./Staking";
-import Game from "./Game";
+import Root from "./Root";
 
 import "../css/App.css";
 import { ethers } from "ethers";
@@ -94,15 +93,14 @@ function App() {
     }
   }
 
-  function renderOthersLinks() {
+  function renderLinks() {
     if (!address) {
       return null;
     }
 
     return (
       <>
-        <Nav.Link href="/game">Game</Nav.Link>
-        <Nav.Link href="/staking">Staking</Nav.Link>
+        <Nav.Link href="/LandScape">LandScape</Nav.Link>
       </>
     );
   }
@@ -117,11 +115,12 @@ function App() {
         <Navbar className="px-3" >
           <Container>
             <Navbar.Brand className="brand">
-							<img src="/images/monopoly_logo.png" width="50%" height="40%"/>
+							<Nav.Link href="/">
+								<img src="/images/monopoly_logo.png" width="50%" height="40%"/>
+							</Nav.Link>
 						</Navbar.Brand>
             <Nav className="me-auto">
-              <Nav.Link href="/">LandScape</Nav.Link>
-              {renderOthersLinks()}
+              {renderLinks()}
             </Nav>
             <Navbar.Collapse className="justify-content-end">
               <Navbar.Text>
@@ -142,7 +141,7 @@ function App() {
 						exact
             path="/"
             element={
-              <LandScape
+              <Root
                 provider={provider}
                 network_id={networkId}
                 address={address}
@@ -151,20 +150,9 @@ function App() {
           />
           <Route
             exact
-            path="/admin/"
+            path="/LandScape"
             element={
               <LandScape
-                provider={provider}
-                network_id={networkId}
-                address={address}
-              />
-            }
-          />
-          <Route
-            exact
-            path="/game"
-            element={
-              <Game
                 provider={provider}
                 networkId={networkId}
                 address={address}
@@ -173,9 +161,9 @@ function App() {
           />
           <Route
             exact
-            path="/staking"
+            path="/"
             element={
-              <Staking
+              <Root
                 provider={provider}
                 network_id={networkId}
                 address={address}

@@ -6,11 +6,10 @@ function EventListener(props){
 	const _contract = props.contract;
 	const _event = props.event;
 
-	const [winner, setWinner] = useState("0x")
+	const [winner, setWinner] = useState(null)
 
 	const subscription = ()=> {
 		_contract.on(_event, (logs) => {
-			console.log(logs);
 			setWinner(logs);
 		});
 	}

@@ -1,20 +1,20 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.10;
+pragma solidity ^0.8.11;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract Rogue is ERC20 {
 
 	address private timonier;
-	address private forban;
-	address private owner;
-	
-  constructor() ERC20("MP swap Token", "MPS") {
+	address private boucanier;
+	address public owner;
+
+  constructor() ERC20("MP swap Token", "MPs") {
 		owner = msg.sender;
 	}
 	
 	modifier onlyMinter() {
-		require(msg.sender == timonier || msg.sender == forban, "minting is not enable");
+		require(msg.sender == timonier || msg.sender == boucanier, "MP :minting is not enable matelot");
 		_;
 	}
 
@@ -23,8 +23,8 @@ contract Rogue is ERC20 {
 	}
 
 	function allow(address masterchef, address staking) public{
-		require(owner == msg.sender,"only owner can call this method");
+		require(msg.sender == owner,"MP: only owner");
 		timonier = staking;
-		forban = masterchef;			
+		boucanier = masterchef;
 	}
 }

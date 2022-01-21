@@ -2,6 +2,7 @@
 const engine = require("./engine.js");
 
 const MB = artifacts.require("./MiningButton");
+const MP = artifacts.require("./MiningProtocol");
 
 module.exports = async function(callback) {
 async function main() {	

@@ -16,7 +16,7 @@ contract('MagicButton', function (accounts) {
 		it("push button testing", async() => {
 			const result = await _MB.pushButton({from:accounts[1]});
 			const balance = await _MB.balanceOf(accounts[1]);
-			expect(balance.toNumber(),1,"pushButton fulfield");
+			expect(balance.toNumber(),10000,"pushButton fulfield");
 			_winner = await _MB.winner();
 			expect(_winner,accounts[1],"curent winner is not the last pusher");
 			await expectEvent(result, 'Push', { winner:accounts[1] });

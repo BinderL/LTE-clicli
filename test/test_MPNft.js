@@ -15,14 +15,14 @@ contract("MPNft.sol", function (accounts){
 		});
 		
 		it("... test de la fonction mint", async () => {
-			await expectRevert(MPNft.mint(player1,{from:player1}), "PropsTesrien: caller is not owner");
-			await MPNft.mint(player1,{from:owner});
+			await expectRevert(MPNft.mint(player1, 0,{from:player1}), "PropsTesrien: caller is not owner");
+			await MPNft.mint(player1, 0,{from:owner});
 			const balance = await MPNft.balanceOf(player1);
 			expect(balance.toNumber()).to.equal(1,"balance != what has been minted")
 		});
 
 		it("... test de la fonction burn", async () => {
-			await MPNft.mint(player1,{from:owner});
+			await MPNft.mint(player1, 0,{from:owner});
 			var balance = await MPNft.balanceOf(player1);
 			expect(balance.toNumber()).to.equal(1,"balance != what has been minted")
 			await expectRevert(MPNft.burn(0,{from:owner}),"PropsTesrien: caller is not owner nor approved.");
@@ -35,11 +35,11 @@ contract("MPNft.sol", function (accounts){
 	context("integration test", function(){
 		it("... multiple mint burn", async () => {
 			MPNft = await Props.new();
-			await MPNft.mint(player1);
+			await MPNft.mint( player1, 0);
 			var balance = await MPNft.balanceOf(player1);
 			var burned = balance.toNumber();
 			await MPNft.burn(0, {from:player1});
-			await MPNft.mint(player1);
+			await MPNft.mint(player1, 1);
 			var tokenID = await MPNft.tokenByIndex(0);
 
 			expect(burned + 1).to.equal(tokenID.toNumber()+1,"tokenID != what has been minted and burned")

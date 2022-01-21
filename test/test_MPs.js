@@ -17,7 +17,7 @@ contract("Mps.sol", function (accounts){
 			MPs = await Rogue.new({from:owner});
 		});
 		it("... test de la fonction allow", async () => { 
-			let result = await expectRevert(MPs.allow(player1, player2, {from:player1}),"only owner can call this method");
+			let result = await expectRevert(MPs.allow(player1, player2, {from:player1}),"only owner");
 		});
 			
 		it("... test de la fonction mint", async () => {
