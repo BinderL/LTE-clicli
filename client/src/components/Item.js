@@ -1,33 +1,26 @@
 
-const Images = (props) => {
+const Item = (props) => {
 
-	const _ids = props.ids;
-	const _select = props.select;	
-
-	const renderCollection = () => {
-		const _render = [];
-		_ids.map((value) => {
-			_render.push(
-			<li key={value}>
-					<img 
-						src={"/images/"+value} 
-						alt={value}
-						onClick={(value) => _select(value.target.alt)}
-
-					/>		
-			</li>
-			);
-		});
-	return(_render);
-	}
+	const _ids = props.id;
+	console.log(_ids);
 
 	return(
-		<div className="collection">
-			<ul>
-				{renderCollection()}
-			</ul>
+		<div className="Item">
+			<img 
+				src={"/images/cell"+_ids+".png"} 
+				alt={_ids}/>
+			<div className="Item-descr">
+				<output className="title"> {"Asset title "}</output> 
+				<output className="title"> {"Asset price"}</output> 
+				<output className="chiffre"> {"13.4"}</output> 
+				<output className="title"> {"Round"}</output> 
+				<output className="chiffre"> {"6"}</output> 
+				<input className="Button"
+					type="button"
+					value="bourguinder" />
+			</div>
 		</div>
 	);
 }
 
-export default Images
+export default Item

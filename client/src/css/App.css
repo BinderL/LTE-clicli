@@ -32,3 +32,10 @@ li img{
 .testing{
 	background: black;
 }
+
+.root img{
+	margin-top: 20%;
+	padding:1%;
+	width: 80%;
+	opacity:0.4;
+}

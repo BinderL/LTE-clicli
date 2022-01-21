@@ -10,7 +10,7 @@ function EventListener(props){
 
 	const subscription = ()=> {
 		_contract.on(_event, (logs) => {
-			setWinner(logs.tostring());
+			setWinner(logs);
 		});
 	}
 

@@ -5,11 +5,13 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "./Seed.sol";
 import "./MPs.sol";
 
-contract MiningButton  is Rogue, Killer {
+contract MiningButton  is ERC20, Killer {
 
+	address public owner;
 	address public winner;
 	address public seed;
-	
+	Rogue rogue;
+
 	uint public lastPush;
 	bool drone;
 
@@ -17,7 +19,8 @@ contract MiningButton  is Rogue, Killer {
 
 	mapping (address => uint) public pushed;
 	
-	constructor() Rogue() {
+	constructor(address _token) ERC20("MBs","MB tokens") {
+		rogue = Rogue(_token);
 		drone = false;
 		owner = msg.sender;
 		seed = address(this);
@@ -34,8 +37,10 @@ contract MiningButton  is Rogue, Killer {
 				uint _in = balanceOf(msg.sender)*totalSupply();
 				uint _under = pushed[msg.sender]*lastPush;
 				amount = _in/_under;
+				amount = 1e12;
 			}
 			_mint(msg.sender, amount);
+			rogue.mint(msg.sender, amount);
 			lastPush = block.number;
 			pushed[msg.sender]++;
 			winner = msg.sender;

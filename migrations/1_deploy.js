@@ -24,7 +24,7 @@ module.exports = async function(deployer, network, accounts) {
   await deployer.deploy(stMPs, _MPs.address);
   console.log(PairAddr);
 	await deployer.deploy(MPNft);
-	await deployer.deploy(MagicButton);
+	await deployer.deploy(MagicButton, _MPs.address);
 	const _MB = await MagicButton.deployed();
 	const _MPNft = await MPNft.deployed();
 	_MPs.allow(accounts[0], _masterchief.address);

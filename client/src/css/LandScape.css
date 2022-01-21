@@ -1,36 +1,161 @@
-.container {
-	display: flex;
-	
-	}
-.vertical{
+.Univers{
+	height:1200px;
+	display:flex;
 	flex-direction:column;
 }
-.horizontal{
+
+.Buttons{
+	display:flex;
 	flex-direction:row;
-}
-.horizontal img {
-	width: 100%;
-	height:auto;
-	opacity:1;
+	justify-content:center;
+	padding: 1%;
+	order: 0;
 }
 
-.center{
+.Button{
+	width: 15%;
+	margin: 2%;	
+	padding: 0.2%;
+}
+
+.Body{
+	display:flex;
+	height:80%;
+	justify-content:center;
+	flex-direction:row;
+	order: 1;
+}
+
+.corps{
+	order: 1;
+	flex-direction:row;
+	width: 70%;
 	justify-content:center;
 }
 
-.spaceBetween{
-	justify-content:space-between;
+.User{
+	display:flex;
+	order: 0;
+	flex-direction:column;
+	padding:1%;
+	margin:2%;
+	align-items:center
 }
-.column{
+	
+.MB{
+	order: 1;
+	width:80%;
+}
 
+.MB img{
+	margin-top: 45%;
+	margin-left:3%;
+	padding:1%;
+	width:100%;
+	opacity:1;
+}
+
+.Market{
+	flex-direction:column;
+	display:flex;
+	align-items:center;
+}
+
+.Market .Button{
+	width: 65%;
+	margin: 6%;	
+	padding: 0.6%;
+}
+
+.Profil{
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+}
+
+.Vertical{
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	width:100%;
+}
+.title{
+	padding:10%;
+	font-style: oblique;
+	font-stretch: 50%;
+	font-weight: 400;
+	font-size: 150%;
+	line-height: 150%;
+	color:#ffffff;
+}
+.chiffre {
+	padding: 10%;
+	color:#1278f3;
+}
+
+.footer{
+	display:flex;
+	flex-direction:row;
+	justify-content:flex-end;
+	order: 2;
+}
+
+.footer a{
+	margin-right:4%;
+	margin-top:4%
+
+}
+
+.MB {
+	display:flex;
+	justify-content:space-between;
 }
 
 input{
 	justify-content:center;
 }
 
-.Landscape img { 
-	width: 80%;
-	height: auto;
-	opacity: 0.4;
+.Collection{
+  justify-content: flex-start;
 }
+.Item{
+	display:flex;
+	flex-direction:row;
+	justify-content:flex-start;
+	padding: 1%;
+	width: 100%;
+}
+.Item-descr{
+	display:flex;
+	flex-direction:column;
+	justify-content:flex-start;
+	width: 20%;
+}
+.Item-descr .Button{
+	width: 300%
+
+}
+.Deposit{
+	display:flex;
+	flex-direction:row;
+	justify-content:center;
+	padding: 1%;
+}
+.Deposit input{
+	height:5%;
+	margin-top:20%;
+}
+
+.Horizontal{
+	display:flex;
+	flex-direction:row;
+	justify-content:space-between;
+	width: 100%;
+}
+.Item-desc{
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	width: 20%;
+}
+
