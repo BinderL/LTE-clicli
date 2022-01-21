@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: Unlicense
-pragma solidity ^0.8.10;
+pragma solidity ^0.8.11;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 
@@ -14,9 +14,9 @@ contract PropsTesrien is ERC721Enumerable{
 		owner = msg.sender;
 	}
 	
-	function mint(address to) external {
+	function mint(address to, uint _tokenId) external {
 		require(msg.sender == owner, "PropsTesrien: caller is not owner"); 
-		_safeMint(to, totalSupply()+burned);
+		_safeMint(to, _tokenId);
 	} 
 	
   function burn(uint256 tokenId) public virtual {

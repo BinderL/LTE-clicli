@@ -18,13 +18,15 @@ module.exports = async function(deployer, network, accounts) {
 	const _MPs = await MPs.deployed();
 	await deployer.deploy(MasterChief, _MPs.address, accounts[0],100000000 ,10 , 100000000);
 	const _masterchief = await MasterChief.deployed();
-	await _MPs.allow(accounts[0], _masterchief.address);
   await _factory.createPair(_WMATIC.address, _MPs.address);
   const PairAddr = await _factory.getPair(_WMATIC.address, _MPs.address);
   await _masterchief.add(20, PairAddr, false);
   await deployer.deploy(stMPs, _MPs.address);
   console.log(PairAddr);
 	await deployer.deploy(MPNft);
-	await deployer.deploy(MagicButton);
-	await deployer.deploy(MP, _MPs.address);
+	await deployer.deploy(MagicButton, _MPs.address);
+	const _MB = await MagicButton.deployed();
+	const _MPNft = await MPNft.deployed();
+	_MPs.allow(accounts[0], _masterchief.address);
+	await deployer.deploy(MP, _MPs.address, _MB.address, _MPNft.address);
 }

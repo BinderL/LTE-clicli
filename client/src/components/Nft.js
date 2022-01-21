@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import Images from "./Item";
-import "../css/Nft.css";
+import EventListener from "./EventListener";
 
 const Nft = (props) => {
 
@@ -10,7 +10,8 @@ const Nft = (props) => {
 	const text = props.text;
 	const _account = props.address;
 	const contract = props.contract;
-		
+	const _protocol = props.protocole
+
 	const [balance, setBalance] = useState([]); 
 	const [amount, setAmount] = useState(0);
 	const event = "Transfer"
@@ -24,6 +25,7 @@ const Nft = (props) => {
 			}
 		});
 	}
+
 	const tokens = async (_bal, id, idMax) => {
 		if(id < idMax){
 			const _tokenId = await contract.tokenOfOwnerByIndex(_account,id);
@@ -34,7 +36,7 @@ const Nft = (props) => {
 		setBalance(_bal);
 	}
 
-	const feedProtocole = () => {
+	const feedProtocol = () => {
 		if(land)
 			return(
 				<div className="vertical">
@@ -49,8 +51,7 @@ const Nft = (props) => {
 						/>
 						<input 
 							onChange={(e) => {
-								setAmount(e.target.value); 
-								console.log(e.target.value);}}
+								setAmount(e.target.value);}}
 							type="text" 
 							value= {amount}
 							id="amount"	
@@ -58,10 +59,16 @@ const Nft = (props) => {
 					</div>
 					<div className="container">
 						<input className="container"
-							onClick={() => {console.log("deposit")}}
+							onClick={async(e) => {
+								const tokenId = land.split("l")[2].split(".")[0];
+								await _protocol.pourParler(amount, tokenId);}}
 							type="button"
 							value="deposit"/>
-					</div>
+					</div>						
+				<EventListener
+					text={"you speak about"}
+					contract={_protocol}
+					event="Depot"/>
 				</div>
 			);
 	}
@@ -90,7 +97,7 @@ const Nft = (props) => {
 					select={setLand}
 				/>
 			</div>
-		{feedProtocole()}
+		{feedProtocol()}
 	</div>
 	);
 }

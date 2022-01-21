@@ -22,3 +22,20 @@
   background: black;
 	color : #ffffff;
 }
+
+li img{
+	width:100%;
+	height:auto;
+	opacity:1;
+}
+
+.testing{
+	background: black;
+}
+
+.root img{
+	margin-top: 20%;
+	padding:1%;
+	width: 80%;
+	opacity:0.4;
+}

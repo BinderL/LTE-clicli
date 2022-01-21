@@ -7,6 +7,7 @@ import Tairreux from "../contracts/Tairreux.json";
 import WMatic from "../contracts/WMATIC.json";
 import UniswapV2Factory from "../contracts/UniswapV2Factory.json";
 import PropsTesrien from "../contracts/PropsTesrien.json";
+import MiningProtocol from "../contracts/MiningProtocol.json";
 
 import Dividends from "./Dividends";
 import Nft from "./Nft";
@@ -14,6 +15,7 @@ import Nft from "./Nft";
 import {ethers} from "ethers";
 
 import Spinner from "react-bootstrap/Spinner";
+import blank from "../script.js";
 
 const Staking = (props) => {
 
@@ -30,6 +32,7 @@ const Staking = (props) => {
 	const [factory, setFactory] = useState(null);
 	const [wmatic, setWmatic] = useState(null);
 	const [MPNft, setMPNft] = useState(null);
+	const [MP, setMP] = useState(null);
 
 	const [tokenId, setTokenId] = useState(0);
 
@@ -48,9 +51,7 @@ const Staking = (props) => {
 	}
 
 	const displayDeposit = () => {
-		return("debug"
-		
-		);
+		return("debug");
 	}
 	
 	useEffect(() => {
@@ -89,6 +90,14 @@ const Staking = (props) => {
 				_provider.getSigner()
 			);
 			setMPNft(_MPNft);
+			
+			const _MP = new ethers.Contract(
+				MiningProtocol.networks[_networkId].address,
+				MiningProtocol.abi,
+				_provider.getSigner()
+			);
+			setMP(_MP);
+
 
 
 			var pairAddr = await _factory.getPair(_wmatic.address, _MPs.address);
@@ -116,9 +125,10 @@ const Staking = (props) => {
 			<Nft className="container"
 				text={"LANDs"}
 				contract={MPNft}
+				protocole={MP}
 				address={_address}
 			/>
-			{displayDeposit()}
+			{blank(0,50)}
 
 		</div>
 	)
