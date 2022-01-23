@@ -19,7 +19,7 @@ contract Tairreux is ERC20, Ownable{
 	uint less;
 
 	modifier onlyTree(){ 
-		require(balanceOf(msg.sender) > 0, "you are able to speak");
+		require(balanceOf(msg.sender) > 0, "Tairreux: you are able to speak");
 		_;
 	}
 
@@ -34,9 +34,8 @@ contract Tairreux is ERC20, Ownable{
 		return IERC20(parole).balanceOf(address(this));
 	} 
 
-
 	function taire(uint amount) public {
-		require(amount > 0, "You are a ZERO");
+		require(amount > 0, "Tairreux: You are a ZERO");
 		if (drone == false) {
 			drone = true;
 			uint last = bourse();

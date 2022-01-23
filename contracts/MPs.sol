@@ -14,7 +14,7 @@ contract Rogue is ERC20 {
 	}
 	
 	modifier onlyMinter() {
-		require(msg.sender == timonier || msg.sender == boucanier, "MP :minting is not enable matelot");
+		require(msg.sender == timonier || msg.sender == boucanier, "Rogue :minting is not enable matelot");
 		_;
 	}
 
@@ -23,7 +23,7 @@ contract Rogue is ERC20 {
 	}
 
 	function allow(address masterchef, address staking) public{
-		require(msg.sender == owner,"MP: only owner");
+		require(msg.sender == owner,"Rogue: only owner");
 		timonier = staking;
 		boucanier = masterchef;
 	}

@@ -1,4 +1,5 @@
 import {useState, useEffect} from "react"
+import {ethers} from "ethers"
 import Collection from "./Collection"
 const Profile = (props) => {
 
@@ -6,6 +7,9 @@ const Profile = (props) => {
 	const _networkId = props.networkId;
 	const _provider = props.provider;
 	const _contract = props.contract;
+	const _protocol = props.protocol;
+	const _bon = props.bon;
+
 	const Lands = require("../data/props.json");
 
 	function subscribeEvent(){
@@ -16,6 +20,10 @@ const Profile = (props) => {
 				await tokens(_bal, 1, _all.toNumber());
 			}
 		});
+		_protocol.on("Depot", async (_tokenId, _amount, _address) => {
+			console.log(_tokenId, _amount, _address);
+		});
+		console.log("EventSubscribed");
 	}
 
 	const tokens = async (_bal, id, idMax) => {
@@ -34,7 +42,7 @@ const Profile = (props) => {
 	
 	useEffect(() => {
 		subscribeEvent();
-	},[]);
+	},[_networkId]);
 	
 	useEffect(() => {
 		async function fetchData() {	
@@ -61,7 +69,8 @@ const Profile = (props) => {
 						/>
 						<input 
 							onChange={(e) => {
-								setAmount(e.target.value);}}
+								const value = e.target.value;
+								setAmount(value);}}
 							type="text" 
 							value= {amount}
 							id="amount"	
@@ -70,7 +79,11 @@ const Profile = (props) => {
 					<div>
 						<input
 							onClick={async() => {
-								const tokenId = selected.split("l")[2].split(".")[0];}}
+								const tokenId = selected;
+								const _amount = ethers.utils.parseEther(amount);
+								await _bon.approve(_protocol.address, _amount, {from:_address});
+								await _contract.approve(_protocol.address, tokenId, {from:_address});
+								await _protocol.pourParler(_amount, tokenId);}}
 							type="button"
 							value="deposit"/>
 					</div>	

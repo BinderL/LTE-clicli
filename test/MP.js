@@ -9,12 +9,12 @@ const Treasure = artifacts.require("PropsTesrien");
 contract('MP.sol', function (accounts) {
 
 	beforeEach(async() => {
-		mb = await MB.new();
 		treasure = await Treasure.new();
 		await treasure.mint(accounts[1], 0);
 		mps = await MPs.new();
-		mp = await MP.new(mps.address, MB.address, treasure.address);
-		await mps.allow(accounts[0], accounts[1]);
+		mb = await MB.new(mps.address);
+		mp = await MP.new(mps.address, mb.address, treasure.address);
+		await mps.allow(accounts[0],mb.address);
 		await mps.mint(accounts[1], 10000);
 	});
 

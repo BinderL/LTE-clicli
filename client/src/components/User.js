@@ -22,7 +22,7 @@ const User = (props) => {
 	function subscribeEvent(){
 		_contract.on("Transfer", async (from, to, BN) => {
 			const _bal = await _contract.balanceOf(_address);
-			setBalance(ethers.utils.formetEther(_bal));
+			setBalance(ethers.utils.formatEther(_bal));
 		});
 	}
 

@@ -12,11 +12,14 @@ import Dividends from "./Dividends"
 import Rogue from "../contracts/Rogue.json";
 import MiningButton from "../contracts/MiningButton"
 import PropsTesrien from "../contracts/PropsTesrien.json";
+import MiningProtocol from "../contracts/MiningProtocol.json";
 
 function LandScape(props) {
 	const _provider = props.provider;
 	const _networkId = props.networkId;
 	const _address = props.address;	
+
+	const [MP, setMP] = useState(null);
 	const [MPs, setMPs] = useState(null);
 	const [MPNft, setMPNft] = useState(null);
 	const [balance, setBalance] = useState(null);
@@ -38,6 +41,13 @@ function LandScape(props) {
 				_provider.getSigner()
 			);
 			setMPNft(_MPNft);
+			const _MP = new ethers.Contract(
+				MiningProtocol.networks[_networkId].address,
+				MiningProtocol.abi,
+				_provider.getSigner()
+			);
+			setMP(_MP);
+
 		}
 		if(_provider && _networkId)
 			fetch();
@@ -69,6 +79,8 @@ function LandScape(props) {
 			address={_address}
 			networkId={_networkId}
 			contract={MPNft}
+			protocol={MP}
+			bon={MPs}
 		/>, 
 		<Dividends
 			provider={_provider}
