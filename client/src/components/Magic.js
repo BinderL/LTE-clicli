@@ -15,8 +15,13 @@ const Magic = (props) => {
 
 	return(
 		<div className="MB"> 
+			<div className="MB-item">
+				<output className="title"> Last magicien </output>
+				<EventListener contract={MB} event={"Push"} logId={0} />
+			</div>
 			<img 
 				src="/images/MB.png"
+				onClick={async () => {await MB.pushButton({from:_address});}}
 			/>
 		</div>
 	)

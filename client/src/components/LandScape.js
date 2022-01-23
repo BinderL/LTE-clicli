@@ -15,11 +15,10 @@ function LandScape(props) {
 	const _provider = props.provider;
 	const _networkId = props.networkId;
 	const _address = props.address;	
-	const [_contract, setContract] = useState(null);
+	const [MPNft, setMPNft] = useState(null);
 
 	const [state,setDisplayState] = useState([false,false,false,false]);
 
-	console.log(_networkId)
 
 	useEffect(() => {
 		const fetch = () => {
@@ -47,7 +46,13 @@ function LandScape(props) {
 			address={_address}
 			networkId={_networkId}
 		/>, 
-		<Market/>, <Profile/>, <Dividends/>]
+		<Market/>, 
+		<Profile/>, 
+		<Dividends
+			provider={_provider}
+			address={_address}
+			networkId={_networkId}/>
+	]
 
 	return (
     <div className="Univers">
@@ -69,8 +74,8 @@ function LandScape(props) {
 					type="button"
 					value="Dividends"/>
 			</div>
-			<div className="Body">		
-				<User className="User" />
+			<div className="Body">	
+				<User className="User" address={_address} provider={_provider} networkId={_networkId}/>
 				<div className="corps"> {renderBody()}</div>
 			</div>
 			<div className="footer">

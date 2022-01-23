@@ -39,3 +39,18 @@ li img{
 	width: 80%;
 	opacity:0.4;
 }
+
+.taule{
+	background: url("../images/taule.png") no-repeat ;
+	background-attachment: local;
+	background-position: center;
+	background-size: 200%;
+
+}
+
+.arbitre{
+	background: url("../images/Arbitre.png") no-repeat ;
+	background-attachment: local;
+	background-position: center;
+	background-size: 150%;
+}

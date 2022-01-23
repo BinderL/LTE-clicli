@@ -4,46 +4,65 @@ import {ethers} from "ethers"
 
 import Rogue from "../contracts/Rogue";
 import Tairreux from "../contracts/Tairreux";
+import EventListener from "./EventListener";
 
 const Dividends = (props) => {
 
 	const _address = props.address;
 	const _provider = props.provider;
-	const _networkId = props.provider;
+	const _networkId = props.networkId;
 
-	const [isReadyToRender, setIsReadyToRender] = useState(false);
 	const [amount, setAmount] = useState("");
-	const [balance, setBalance] = useState(0);
-	const [deposit, setDeposit] = useState(0);
+	const [MPsBalance, setMPsBalance] = useState(0);
+	const [LPbalance, setLPBalance] = useState(0);
+	const [MPsdeposit, setMPsDeposit] = useState(0);
+	const [LPdeposit, setLPDeposit] = useState(0);
 	const [staker, setStaker] = useState(null);
 
-
-	let MPs;
-	let stMPs;
-
-	const contract = () => {
-		MPs = new ethers.Contract(
+	const[MPs, setMPs] = useState(null);
+	const[stMPs, setStMPs] = useState(null);
+	
+	const fetch = async() => {
+		const _MPs = new ethers.Contract(
 			Rogue.networks[_networkId].address,
 			Rogue.abi,
 			_provider.getSigner()
 		);
+		await setMPs(_MPs);
 
-		stMPs = new ethers.Contract(
+		const _stMPs = new ethers.Contract(
 			Tairreux.networks[_networkId].address,
 			Tairreux.abi,
 			_provider.getSigner()
 		);
+		await setStMPs(_stMPs)
+
+		//fetchMPs(MPs, _address);
 	}
 
   useEffect(() => {
-    if (_provider && _networkId) 
-			contract();
-    	setIsReadyToRender(true);
-	},[_provider, _networkId]);
-		
+    if (_provider && _networkId){
+			fetch();
+		}
+	},[_provider, _networkId, _address]);
+
+	const fetchMPs = async(_contract, _address) => {
+		var _balance = await _contract.balanceOf(_address);
+		_balance = ethers.utils.formatEther(_balance);
+		setMPsBalance(_balance);
+		return _balance
+	}
+
+	const fetchDeposit = async(_contract, _address) => {
+		var _balance = await _contract.bourse()
+		_balance = ethers.utils.formatEther(_balance);
+		setMPsDeposit(ethers.utils.formatEther(_balance));
+		return _balance
+	}
+
 	const Button = (_proto, _onClick) => {
 		return(
-		<input
+		<input className="button"
 			onClick={_onClick}
 			type="button"
 			value={_proto}/>
@@ -57,88 +76,77 @@ const Dividends = (props) => {
 	}
 
 	const onChange = [
-		(e) => {setAmount(e.target.value);},
+		(e) => {setAmount(e.target.value);}
 	]
 
 
 	const onClick = [
 		async() => {
-			var _balance = await MPs.balanceOf(_address);
-			setAmount(_balance.toNumber());
+			await fetchMPs(MPs, _address);
+			setAmount(MPsBalance.toString());
 			},
 		async()	=> {
-			await MPs.approve(stMPs.address, amount, {from:_address});
+			var _amount = ethers.utils.parseEther(amount);
+			await MPs.approve(stMPs.address, _amount, {from:_address});
 			stMPs.depositAll();
 		}];
 
-	const _render = (_proto, _title) => {
+	const _render = (props) => {
+		const _proto = props.proto;
+		const _title = props.title;
+		const _menu = props.menu;
+		const split = _title.split(" ");
+		const type = split[0];
 		return(
 			<div className="Staker">
-				<output className="title"> _title </output>
+				<div>
+					<output className="title"> {_title} </output>
+					<div className="phrase">
+						<output className="title">{"MPs tokens available for " + type + ": "} </output>
+						<output className="chiffre"> {MPsBalance} </output>
+					</div>
+				</div>
 				<div className="Buttons">
-					{Input(_proto, onChange[staker])}
-					{Button(_proto, onClick[staker])}
-					{Button(_proto, onClick[staker + 1])}
+					{Input(_proto, onChange[staker - 1])}
+					{Button(_proto, onClick[staker - 1])}
+				</div>
+				<div className="Buttons">
+					{Button("Cancel", () => {fetchMPs(MPs, _address); setStaker(0)})}
+					{Button("Confirm", onClick[staker])}
 				</div>
 			</div>
 		);
 	}
 
-	const _staker = () => {
-		if(staker){
-			
-			return(
-				<div>
-					<input 
-						type="text" 
-						value= {amount}
-						id="amount"
-						onChange={(e) => {
-							console.log(e.target.value);
-							setAmount(e.target.value);}}/>
-					<input
-						onClick={ async () => {
-							var _balance = await MPs.balanceOf(_address);
-							setAmount(_balance.toNumber());
-							setBalance(_balance.toNumber());}}
-						type="button"
-						value="MAX"/>
-					<input
-						onClick={ async () => {
-							if(amount ===balance){
-								await MPs.approve(stMPs.address, amount, {from:_address});
-								stMPs.depositAll();
-						}}}
-						type="button"
-						value="Deposit"/>
-				</div>
-			);
-		}
-	}
 	const display = () => {
 		return(
 			<div className="Vertical">
-				<output className="title">EARNING</output>
+				<div className="head">
+					<output className="title">EARNING</output>
+				</div>
 				<div className="Horizontal">
 					<div className="Item-desc">
-						<output className="title">MPs tokens farmed</output>
+						<output className="title head">MPs tokens farmed</output>
 						<output className="chiffre"> 0.089536 </output>
 						<input type="button" value="Harvest"/>
 					</div>
-					<div className="Item-desc">
+					<div className="Item-desc ">
 						<output className="title">MPs tokens not staked </output> 
-						<output className="chiffre"> {balance + "  MPs tokens"} </output>
+						<output className="chiffre"> {"MPs tokens"} </output>
+						<EventListener address={_address} contract={MPs} event="Transfer" logId={2} wrapped={fetchMPs} />
 						<input type="button" value="Stake"
-							onClick={() => {setStaker(true);}}/>
+							onClick={async() => {
+								fetchMPs(MPs, _address);
+								setStaker(1);}}/>
 					</div>				
-					<div className="Item-desc">
+					<div className="Item-desc taule">
 						<output className="title">Already staked </output> 
-						<output className="chiffre"> {deposit + "  MPs tokens"} </output>
-						<input type="button" value="Unstake"/>
-							onClick={() => {setStaker(false);}}/>
+						<output className="chiffre"> {MPsdeposit + "  MPs tokens"} </output>
+						<input type="button" value="Unstake"
+							onClick={() => {setStaker(2);}}/>
 					</div>
 				</div>
-				<output className="title"> Liquidity Mining </output>
+				<div className="head space"><output className="title"> Liquidity Mining </output></div>
 				<div className="Horizontal">
 					<div className="Item-desc">
 						<output className="title">MPs tokens farmed</output>
@@ -146,29 +154,35 @@ const Dividends = (props) => {
 						<input type="button" value="Harvest"/>
 					</div>
 					<div className="Item-desc">
-						<output className="title">MPs-WETH LP tokens balance </output> 
-						<output className="chiffre"> {balance + "  MPs-WETH LP tokens"} </output>
-						<input type="button" value="Stake"/>
-							onClick={() => {setStaker(false);}}/>
+						<output className="title">MPs-WETH LP tokens not staked </output> 
+						<output className="chiffre"> {LPbalance + "  MPs-WETH LP tokens"} </output>
+						<input type="button" value="Stake"
+							onClick={() => {setStaker(3);}}/>
 					</div>				
-					<div className="Item-desc">
+					<div className="Item-desc arbitre">
 						<output className="title">MPs-WETH LP tokens staked </output> 
-						<output className="chiffre"> {deposit + "  MPs-WETH LP tokens"} </output>
-						<input type="button" value="Unstake"/>
-							onClick={() => {setStaker(false);}}/>
+						<output className="chiffre"> {LPdeposit + "  MPs-WETH LP tokens"} </output>
+						<input type="button" value="Unstake"
+							onClick={() => {setStaker(4);}}/>
 					</div>
 				</div>
 			</div>
 		);
 	}
 
-  if (!isReadyToRender) {
-    return (<div></div>)
-  }
-	else 
-		if(staker)
-			return _render("proto","title");
+	const render = [];
+	render.push({proto:"MAX", title:"Stake your MPs Tokens", menu:"Deposit"});
+	render.push({proto: "MAX", title: "Unstake your MPs Tokens", menu: "Withdraw"});
+	render.push({proto: "MAX", title: "Stake your MPs-WETH LP tokens", menu: "Deposit"});
+	render.push({proto: "MAX", title: "Unstake your MPs-WETH LP tokens", menu: "Withdraw"});
+
+	if(MPs)
+		if(staker > 0)
+			return _render(render[staker-1]);
 		else return display();
+	else
+		return(<div> </div>)
+
 }
 
 export default Dividends;
