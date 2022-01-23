@@ -1,5 +1,6 @@
 import "../css/LandScape.css"
 import {useState, useEffect} from "react"
+import {ethers} from "ethers"
 
 import User from "./User"
 import Root from "./Root"
@@ -8,22 +9,38 @@ import Market from "./Market"
 import Profile from "./Profile"
 import Dividends from "./Dividends"
 
-import {ethers} from "ethers"
+import Rogue from "../contracts/Rogue.json";
 import MiningButton from "../contracts/MiningButton"
+import PropsTesrien from "../contracts/PropsTesrien.json";
 
 function LandScape(props) {
 	const _provider = props.provider;
 	const _networkId = props.networkId;
 	const _address = props.address;	
+	const [MPs, setMPs] = useState(null);
 	const [MPNft, setMPNft] = useState(null);
-
+	const [balance, setBalance] = useState(null);
+	
 	const [state,setDisplayState] = useState([false,false,false,false]);
 
 
 	useEffect(() => {
 		const fetch = () => {
+			const _MPs = new ethers.Contract(
+				Rogue.networks[_networkId].address,
+				Rogue.abi,
+				_provider.getSigner()
+			);
+			setMPs(_MPs);
+			const _MPNft = new ethers.Contract(
+				PropsTesrien.networks[_networkId].address,
+				PropsTesrien.abi,
+				_provider.getSigner()
+			);
+			setMPNft(_MPNft);
 		}
-		fetch();
+		if(_provider && _networkId)
+			fetch();
 	},[_networkId, _provider, _address]);
 
 	const displayState = (_id) => {
@@ -47,7 +64,12 @@ function LandScape(props) {
 			networkId={_networkId}
 		/>, 
 		<Market/>, 
-		<Profile/>, 
+		<Profile
+			provider={_provider}
+			address={_address}
+			networkId={_networkId}
+			contract={MPNft}
+		/>, 
 		<Dividends
 			provider={_provider}
 			address={_address}
@@ -58,7 +80,10 @@ function LandScape(props) {
     <div className="Univers">
     	<div className="Buttons">
 				<input className="Button"
-					onClick={() => {setDisplayState([true,false,false,false]);}}
+					onClick={async() => {
+						const _value = await MPs.balanceOf(_address);
+						setBalance(ethers.utils.formatEther(_value));
+						setDisplayState([true,false,false,false]);}}
 					type="button"
 					value="Magic" />
 				<input className="Button"
@@ -75,7 +100,7 @@ function LandScape(props) {
 					value="Dividends"/>
 			</div>
 			<div className="Body">	
-				<User className="User" address={_address} provider={_provider} networkId={_networkId}/>
+				<User className="User" balance={balance} address={_address} provider={_provider} networkId={_networkId} contract={MPs}/>
 				<div className="corps"> {renderBody()}</div>
 			</div>
 			<div className="footer">
