@@ -10,7 +10,8 @@ import Profile from "./Profile"
 import Dividends from "./Dividends"
 
 import Rogue from "../contracts/Rogue.json";
-import MiningButton from "../contracts/MiningButton"
+import Tairreux from "../contracts/Tairreux.json";
+import MiningButton from "../contracts/MiningButton";
 import PropsTesrien from "../contracts/PropsTesrien.json";
 import MiningProtocol from "../contracts/MiningProtocol.json";
 
@@ -19,8 +20,10 @@ function LandScape(props) {
 	const _networkId = props.networkId;
 	const _address = props.address;	
 
+	const [MB, setMB] = useState(null);
 	const [MP, setMP] = useState(null);
 	const [MPs, setMPs] = useState(null);
+	const [stMPs, setStMPs] = useState(null);
 	const [MPNft, setMPNft] = useState(null);
 	const [balance, setBalance] = useState(null);
 	
@@ -47,6 +50,18 @@ function LandScape(props) {
 				_provider.getSigner()
 			);
 			setMP(_MP);
+			const _MB = new ethers.Contract(
+				MiningButton.networks[_networkId].address,
+				MiningButton.abi,
+				_provider.getSigner()
+			);
+			setMB(_MB);
+			const _stMPs = new ethers.Contract(
+				Tairreux.networks[_networkId].address,
+				Tairreux.abi,
+				_provider.getSigner()
+			);
+			setStMPs(_stMPs);
 
 		}
 		if(_provider && _networkId)
@@ -72,6 +87,7 @@ function LandScape(props) {
 			provider={_provider}
 			address={_address}
 			networkId={_networkId}
+			contrat={MB}	
 		/>, 
 		<Market/>, 
 		<Profile
@@ -85,7 +101,10 @@ function LandScape(props) {
 		<Dividends
 			provider={_provider}
 			address={_address}
-			networkId={_networkId}/>
+			networkId={_networkId}
+			devise={MPs}
+			contrat={stMPs}
+		/>
 	]
 
 	return (

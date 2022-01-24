@@ -2,7 +2,7 @@ import {useEffect} from "react"
 import {ethers} from "ethers"
 import Rogue from "../contracts/Rogue"
 import {useState} from "react"
-import EventListener from "./EventListener"
+
 
 const User = (props) => {
 	const _address = props.address;
@@ -23,12 +23,20 @@ const User = (props) => {
 		_contract.on("Transfer", async (from, to, BN) => {
 			const _bal = await _contract.balanceOf(_address);
 			setBalance(ethers.utils.formatEther(_bal));
+			console.log('event');
 		});
 	}
 
 	useEffect(() => {
-		if(_contract)
-			subscribeEvent();
+		const fetch = async () =>{
+			if(_contract){
+				subscribeEvent();
+				const value = await wrapped(_contract, _address);
+				console.log(value);
+				setBalance(value);
+			}
+		}
+		fetch();
 	},[_contract]);
 	
 	useEffect( () => {	
@@ -39,6 +47,7 @@ const User = (props) => {
 				Rogue.abi,
 				_provider.getSigner());				
 				setMPs(_MPs);
+
 		}
 
 	},[_networkId, _address]);
@@ -47,8 +56,7 @@ const User = (props) => {
 		return(<div className="User"> 
 			<output className="title"> MPS </output>
 			<output className="font"> Your balance:</output>
-			<EventListener logId={2} contract={_contract} wrapped={wrapped} event="Transfer" address={_address} />
-			<output className="chiffre">{_balance}</output>
+			<output className="chiffre">{balance}</output>
 		</div>);
 	else
 		return(<div></div>)

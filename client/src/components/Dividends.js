@@ -4,13 +4,15 @@ import {ethers} from "ethers"
 
 import Rogue from "../contracts/Rogue";
 import Tairreux from "../contracts/Tairreux";
-import EventListener from "./EventListener";
+
 
 const Dividends = (props) => {
 
 	const _address = props.address;
 	const _provider = props.provider;
 	const _networkId = props.networkId;
+	const _devise = props.devise;
+	const _contract = props.contract;
 
 	const [amount, setAmount] = useState("");
 	const [MPsBalance, setMPsBalance] = useState(0);
@@ -21,7 +23,14 @@ const Dividends = (props) => {
 
 	const[MPs, setMPs] = useState(null);
 	const[stMPs, setStMPs] = useState(null);
-	
+
+	const subscribe = () => {
+		_devise.on("Transfer", async(from,to,amount) => {
+			var _balance = await _devise.balanceOf(_address);
+			setMPsBalance(ethers.utils.formatEther(_balance));
+		});	
+	}
+
 	const fetch = async() => {
 		const _MPs = new ethers.Contract(
 			Rogue.networks[_networkId].address,
@@ -41,8 +50,14 @@ const Dividends = (props) => {
 	}
 
   useEffect(() => {
-    if (_provider && _networkId){
+    const fetchier = async() => {
+			const value = await _devise.balanceOf(_address);			
+			setMPsBalance(ethers.utils.formatEther(value));
+
+		}
+		if (_provider && _networkId){
 			fetch();
+			fetchier();
 		}
 	},[_provider, _networkId, _address]);
 
@@ -132,8 +147,9 @@ const Dividends = (props) => {
 					</div>
 					<div className="Item-desc ">
 						<output className="title">MPs tokens not staked </output> 
-						<output className="chiffre"> {"MPs tokens"} </output>
-						<EventListener address={_address} contract={MPs} event="Transfer" logId={2} wrapped={fetchMPs} />
+						<output className="title"> {"MPs tokens"} </output>
+						<output className="chiffre"> {MPsBalance} </output>
+
 						<input type="button" value="Stake"
 							onClick={async() => {
 								fetchMPs(MPs, _address);

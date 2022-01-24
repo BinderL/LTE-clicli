@@ -4,9 +4,34 @@ import Item from "./Item"
 
 const Market = (props) => {
 
-	const [provider,setProvider] = useState(-1);
+	const [provider,setProvider] = useState([]);
 	const [item, setItem] = useState(-1);
-	const [transform, setTransform] = useState();
+	const [transform, setTransform] = useState(false);
+
+	const providers=[]
+	providers.push([0,1,2]);
+	providers.push([5,6,7,8,9]);
+	providers.push([]);
+	providers.push([19,20,21]);
+
+	const Button = (id) => {
+		return(
+			<input className="Button"
+				onClick={() => {setTransform(false);setItem(-1); setProvider(providers[id])}}
+				type={"button"}
+				value={"Provider "+ id} />
+		)
+	}
+
+	const buttons = [];
+
+	const Buttons = (id, idM) => {
+		if(id<idM){
+			buttons.push(Button(id));
+			Buttons(id+1, idM);
+		}
+	}
+	Buttons(0,providers.length);
 
 	let style;
 	if(!transform)
@@ -15,13 +40,13 @@ const Market = (props) => {
 		style = {width:"5%",margin:"1%"};
 
 	const renderProvider = () => {
-		if(provider >= 0)
+		if(provider.length > 0)
 			return displayProvider(provider);
 	}
 	const displayProvider = () => {
 		return(
 			<Collection
-				ids={[0,1,2,3,4,5]}
+				ids={provider}
 				select={setItem} 
 				setStyle={setTransform}
 				style={style}
@@ -42,14 +67,7 @@ const Market = (props) => {
 		<div className="Market">
 			<output className="title"> Providers </output>
 			<div className="Buttons">
-				<input className="Button"
-					onClick={() => {setProvider(1)}}
-					type={"button"}
-					value={"Provider 1"} />
-				<input className="Button"
-					onClick={() => {setProvider(0)}}
-					type={"button"}
-					value={"Provider 2"} />
+				{buttons}
 			</div>
 			{_render}
 			{renderItem()}

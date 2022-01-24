@@ -1,7 +1,8 @@
 import {ethers} from "ethers"
 import MiningButton from "../contracts/MiningButton"
-import EventListener from "./EventListener"
+
 import "../css/LandScape.css"
+import {useState, useEffect} from "react"
 
 const Magic = (props) => {
 	const _provider = props.provider;
@@ -12,12 +13,31 @@ const Magic = (props) => {
 		MiningButton.abi,
 		_provider.getSigner()
 	);
+	const _contrat = props.contrat;
+	const [winner, setWinner] = useState("");
+
+	const subscribe = () => {
+		_contrat.on("Push",(log) => {
+			console.log(log);
+			setWinner(log);
+		});
+		console.log("bus")
+	}
+
+	useEffect(()=>{
+		const fetch = async () => {
+			const _winner = await MB.winner();	
+			setWinner(_winner);
+		}
+		subscribe();
+		fetch();
+	},[_contrat]);
 
 	return(
 		<div className="MB"> 
 			<div className="MB-item">
 				<output className="title"> Last magicien </output>
-				<EventListener contract={MB} event={"Push"} logId={0} />
+				<output className="chiffre"> {winner} </output>
 			</div>
 			<img 
 				src="/images/MB.png"
