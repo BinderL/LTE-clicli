@@ -1,0 +1,183 @@
+{
+  "contractName": "IMiningButton",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "pushButton",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.11+commit.d7f03943\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"pushButton\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/IMagicButton.sol\":\"IMiningButton\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/IMagicButton.sol\":{\"keccak256\":\"0x6c4abcf1924148654ee7991b802dcf6d3d37b3cb145fda64d137decd37fccbe9\",\"license\":\"CC\",\"urls\":[\"bzz-raw://34a0a860d2bd023fbd63b9f1f151a5f630fb36e15bf249178062f8bc31ea573f\",\"dweb:/ipfs/QmbTrdogYkFKUSvKggT3VvZqArsKt9AM5EdKCGKkBRqq53\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "//SPDX-License-Identifier: CC\npragma solidity ^0.8.11;\n\ninterface IMiningButton {\n  function pushButton() external ;\n}\n\n\n",
+  "sourcePath": "/home/binderl/Documents/GIT/MP/contracts/IMagicButton.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/IMagicButton.sol",
+    "exportedSymbols": {
+      "IMiningButton": [
+        2770
+      ]
+    },
+    "id": 2771,
+    "license": "CC",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 2766,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".11"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "30:24:17"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "IMiningButton",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 2770,
+        "linearizedBaseContracts": [
+          2770
+        ],
+        "name": "IMiningButton",
+        "nameLocation": "66:13:17",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "0a007972",
+            "id": 2769,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "pushButton",
+            "nameLocation": "93:10:17",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2767,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "103:2:17"
+            },
+            "returnParameters": {
+              "id": 2768,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "115:0:17"
+            },
+            "scope": 2770,
+            "src": "84:32:17",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 2771,
+        "src": "56:62:17",
+        "usedErrors": []
+      }
+    ],
+    "src": "30:91:17"
+  },
+  "legacyAST": {
+    "absolutePath": "project:/contracts/IMagicButton.sol",
+    "exportedSymbols": {
+      "IMiningButton": [
+        2770
+      ]
+    },
+    "id": 2771,
+    "license": "CC",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 2766,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".11"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "30:24:17"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "IMiningButton",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 2770,
+        "linearizedBaseContracts": [
+          2770
+        ],
+        "name": "IMiningButton",
+        "nameLocation": "66:13:17",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "0a007972",
+            "id": 2769,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "pushButton",
+            "nameLocation": "93:10:17",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2767,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "103:2:17"
+            },
+            "returnParameters": {
+              "id": 2768,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "115:0:17"
+            },
+            "scope": 2770,
+            "src": "84:32:17",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 2771,
+        "src": "56:62:17",
+        "usedErrors": []
+      }
+    ],
+    "src": "30:91:17"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.11+commit.d7f03943.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.3",
+  "updatedAt": "2022-01-21T20:02:55.128Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

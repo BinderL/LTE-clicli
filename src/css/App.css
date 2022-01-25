@@ -1,0 +1,55 @@
+.App {
+    background: url("../images/home_background6.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.px-3{
+	background-color:rgba(6, 19, 36, 0.4);
+	color : #ffffff;
+}
+
+.navbar-light .navbar-nav .nav-link{
+	color : #ffffff;
+}
+.font{	
+	color : #ffffff;
+}
+
+.mx-3{
+  background: black;
+	color : #ffffff;
+}
+
+li img{
+	width:100%;
+	height:auto;
+	opacity:1;
+}
+
+.testing{
+	background: black;
+}
+
+.root img{
+	padding:1%;
+	width: 80%;
+	opacity:0.4;
+}
+
+.taule{
+	background: url("../images/taule.png") no-repeat ;
+	background-attachment: local;
+	background-position: center;
+	background-size: 200%;
+
+}
+
+.arbitre{
+	background: url("../images/Arbitre.png") no-repeat ;
+	background-attachment: local;
+	background-position: center;
+	background-size: 150%;
+}
